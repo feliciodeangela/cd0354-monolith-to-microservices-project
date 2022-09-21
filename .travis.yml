@@ -1,24 +1,25 @@
 language: node_js
-
 node_js:
-        - 12
+  - 12
 
 services:
-        - docker
+  - docker
 
+# Pre-testing installs
 install:
-	- echo "nothing to install"
+  - echo "nothing needs to be installed"
 
+# Scripts to be run such as tests
 before_script:
-        - echo 'nothing'
+  - echo "no tests"
 
 script:
-        - docker --version
-        - docker-compose -f docker-compose-build.yaml build --parallel
+  - docker --version # print the version for logging
+  - docker-compose -f docker-compose-build.yaml build --parallel
 
 after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --pasword-stdin
-        - docker push feliciodeangela/udagram-frontend:local
-        - docker push feliciodeangela/reverseproxy
-        - docker push feliciodeangela/udagram-api-user
-        - docker push feliciodeangela/udagram-api-feed
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push feliciodeangela/udagram-frontend:local
+  - docker push feliciodeangela/reverseproxy
+  - docker push feliciodeangela/udagram-api-user
+  - docker push feliciodeangela/udagram-api-feed
