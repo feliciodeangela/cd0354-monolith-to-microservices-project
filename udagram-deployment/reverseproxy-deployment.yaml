@@ -2,21 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reverseproxy
+  labels:
+    app: reverseproxy
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: reverseproxy
+      app: reverseproxy
   template:
     metadata:
       labels:
-        run: reverseproxy
+        app: reverseproxy
     spec:
       containers:
         - name: reverseproxy
           image: docker.io/feliciodeangela/reverseproxy
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           resources:
             requests:
               cpu: "200m"
